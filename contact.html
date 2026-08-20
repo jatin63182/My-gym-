@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact IronForge Fitness and book a free trial.">
+  <title>IronForge Fitness | Contact</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <a class="logo" href="index.html">IRON<span>FORGE</span></a>
+  <button class="menu-btn" aria-label="Open menu">☰</button>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a class="active" href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-hero">
+    <p class="eyebrow">LET'S GET STARTED</p>
+    <h1>CONTACT <span>US</span></h1>
+    <p>Book your free trial or ask us anything about membership.</p>
+  </section>
+
+  <section class="contact-wrap">
+    <div class="contact-info">
+      <p class="eyebrow">VISIT IRONFORGE</p>
+      <h2>COME TRAIN<br>WITH US.</h2>
+      <div class="contact-item"><strong>📍 Location</strong><span>Your City, India</span></div>
+      <div class="contact-item"><strong>📞 Phone</strong><span>+91 98765 43210</span></div>
+      <div class="contact-item"><strong>✉ Email</strong><span>hello@ironforgegym.com</span></div>
+      <div class="contact-item"><strong>🕐 Hours</strong><span>Open 24 hours</span></div>
+    </div>
+
+    <form id="contactForm" class="contact-form">
+      <h2>BOOK A FREE TRIAL</h2>
+      <label>Name<input id="name" type="text" placeholder="Your name" required></label>
+      <label>Phone<input id="phone" type="tel" placeholder="Your phone number" required></label>
+      <label>Goal
+        <select id="goal" required>
+          <option value="">Select your goal</option>
+          <option>Build Muscle</option><option>Lose Fat</option><option>Improve Fitness</option><option>Personal Training</option>
+        </select>
+      </label>
+      <label>Message<textarea id="message" rows="4" placeholder="Tell us your goal..."></textarea></label>
+      <button class="btn" type="submit">Request Free Trial</button>
+      <p id="formMessage" class="form-message"></p>
+    </form>
+  </section>
+</main>
+
+<footer><span>© 2026 IronForge Fitness</span><span>Train Hard • Stay Strong</span></footer>
+<script src="script.js"></script>
+</body>
+</html>
