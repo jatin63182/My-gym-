@@ -1,261 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PeakFit Gym — All in One</title>
-  <meta name="description" content="PeakFit — gym website with Home, Classes, and Contact in a single file." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#071021;
-      --muted:#9aa4b2;
-      --accent:#ff5a5f;
-      --accent-2:#0ea5a4;
-      --text:#e6eef6;
-      --card:rgba(255,255,255,0.02);
-      --max-width:1100px;
-      --radius:10px;
-      --gap:1.25rem;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:linear-gradient(180deg,#071021 0%, #071828 100%);
-      color:var(--text);
-      font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      -webkit-font-smoothing:antialiased;
-      line-height:1.45;
-      font-size:16px;
-      scroll-behavior:smooth;
-    }
-    .container{
-      width:clamp(320px,90%,var(--max-width));
-      margin:0 auto;
-      padding:2rem 0;
-    }
-
-    /* Header */
-    .site-header{
-      background:rgba(6,10,14,0.6);
-      position:sticky;
-      top:0;
-      z-index:20;
-      backdrop-filter: blur(6px);
-      border-bottom:1px solid rgba(255,255,255,0.03);
-    }
-    .header-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-    }
-    .brand{color:var(--text);font-weight:800;text-decoration:none;font-size:1.25rem}
-    .main-nav ul{list-style:none;display:flex;margin:0;padding:0;gap:0.75rem}
-    .main-nav a{color:var(--text);text-decoration:none;padding:0.5rem 0.75rem;border-radius:6px}
-    .main-nav a:hover,.main-nav a.active{background:rgba(255,255,255,0.03)}
-    .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.25rem}
-
-    /* Hero */
-    .hero{padding:3rem 0;min-height:56vh;display:flex;align-items:center}
-    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:var(--gap);align-items:center;width:100%}
-    .hero-content h1{font-size:clamp(1.6rem,3.4vw,2.6rem);margin:0 0 0.6rem 0;line-height:1.05}
-    .btn{display:inline-block;padding:0.6rem 1rem;border-radius:8px;font-weight:600;color:var(--text);text-decoration:none;border:1px solid rgba(255,255,255,0.06)}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021012;border:none}
-    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.08)}
-    .image-placeholder{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:var(--radius);height:260px;display:flex;align-items:center;justify-content:center;color:#021012;font-weight:700}
-
-    /* Sections */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}
-    .card{background:var(--card);padding:1rem;border-radius:10px}
-    .trainer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1rem}
-    .trainer{background:var(--card);padding:1rem;border-radius:10px;text-align:center}
-    .trainer-photo{height:110px;border-radius:8px;margin-bottom:0.5rem;background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:var(--muted)}
-
-    .cta{margin-top:2rem;background:linear-gradient(90deg,rgba(14,165,164,0.06),rgba(255,90,95,0.06));padding:1.25rem;border-radius:10px}
-
-    /* Classes */
-    .filters{margin-top:1rem;display:flex;gap:1rem;align-items:center}
-    .class-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
-    .class-card{background:var(--card);padding:1rem;border-radius:10px}
-
-    /* Contact */
-    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:1.25rem;align-items:start;margin-top:1rem}
-    .contact-form label{display:block;margin-bottom:0.8rem;color:var(--text);font-weight:500}
-    .contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:0.6rem;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text)}
-    .map-placeholder{height:200px;background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
-
-    .muted{color:var(--muted)}
-    .site-footer{border-top:1px solid rgba(255,255,255,0.03);margin-top:3rem;padding:1.25rem 0;color:var(--muted)}
-
-    /* Layout helpers */
-    section{padding:2rem 0}
-    h2{margin-top:0}
-
-    /* Responsive */
-    @media (max-width:900px){
-      .hero-grid{grid-template-columns:1fr}
-      .nav-toggle{display:inline-block}
-      .main-nav{display:none}
-      .main-nav.open{display:block;position:absolute;right:1rem;top:64px}
-      .main-nav ul{flex-direction:column;background:rgba(0,0,0,0.4);padding:0.75rem;border-radius:8px}
-      .contact-grid{grid-template-columns:1fr}
-    }
-    @media (max-width:480px){
-      .header-inner{padding:0.5rem 1rem}
-      .hero{padding:2rem 0}
-      .container{padding:1rem}
-    }
-    /* small accessibility focus */
-    a:focus, button:focus, input:focus, select:focus, textarea:focus {outline:3px solid rgba(14,165,164,0.18); outline-offset:2px}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IronForge Fitness - Premium gym and personal training.">
+  <title>IronForge Fitness | Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#home">PeakFit</a>
+<header class="header">
+  <a class="logo" href="index.html">IRON<span>FORGE</span></a>
+  <button class="menu-btn" aria-label="Open menu">☰</button>
+  <nav class="nav">
+    <a class="active" href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="mainNav">☰ <span class="sr-only">Toggle navigation</span></button>
-
-      <nav id="mainNav" class="main-nav" role="navigation" aria-label="Primary">
-        <ul>
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#classes" class="nav-link">Classes</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">NO EXCUSES. JUST RESULTS.</p>
+      <h1>BUILD YOUR<br><span>STRONGEST</span> SELF.</h1>
+      <p class="hero-text">Train smarter, get stronger and become the best version of yourself with expert coaching and a premium training environment.</p>
+      <div class="hero-buttons">
+        <a class="btn" href="programs.html">Explore Programs</a>
+        <a class="btn btn-outline" href="contact.html">Start Today</a>
+      </div>
     </div>
-  </header>
+    <div class="hero-card">
+      <div class="pulse">● LIVE TRAINING</div>
+      <h3>YOUR GOAL.<br>OUR MISSION.</h3>
+      <p>Personal coaching • Modern equipment • Real results</p>
+    </div>
+  </section>
 
-  <main>
-    <!-- HOME -->
-    <section id="home" class="hero" aria-label="Home">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <h1>Get Stronger. Feel Better. Be PeakFit.</h1>
-          <p>State-of-the-art equipment, expert trainers, flexible plans. Join a community that supports your goals.</p>
-          <p class="hero-ctas">
-            <a class="btn btn-primary" href="#classes">Explore Classes</a>
-            <a class="btn btn-outline" href="#contact">Get a Trial</a>
-          </p>
-        </div>
-        <div class="hero-image" aria-hidden="true">
-          <div class="image-placeholder">Your gym image here</div>
-        </div>
-      </div>
-    </section>
+  <section class="stats">
+    <div><strong>5K+</strong><span>Members</span></div>
+    <div><strong>25+</strong><span>Expert Trainers</span></div>
+    <div><strong>12</strong><span>Training Zones</span></div>
+    <div><strong>24/7</strong><span>Gym Access</span></div>
+  </section>
 
-    <section class="features container" aria-label="Why PeakFit">
-      <h2>Why PeakFit?</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Professional Trainers</h3>
-          <p>Certified coaches, personalised programs and small-group training.</p>
-        </article>
-        <article class="card">
-          <h3>Modern Equipment</h3>
-          <p>Top-of-the-line machines and free weights for every workout.</p>
-        </article>
-        <article class="card">
-          <h3>Flexible Memberships</h3>
-          <p>Monthly, quarterly, and yearly plans with no-contract options.</p>
-        </article>
-      </div>
-    </section>
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">WHY IRONFORGE</p>
+      <h2>MORE THAN A GYM.</h2>
+    </div>
+    <div class="feature-grid">
+      <article class="feature"><div class="icon">⚡</div><h3>Performance</h3><p>Structured workouts designed around your goals, fitness level and progress.</p></article>
+      <article class="feature"><div class="icon">🏋</div><h3>Elite Equipment</h3><p>Modern strength, cardio and functional training equipment for every athlete.</p></article>
+      <article class="feature"><div class="icon">🎯</div><h3>Expert Coaching</h3><p>Get guidance from experienced trainers who keep you accountable.</p></article>
+    </div>
+  </section>
 
-    <section class="trainers container" aria-label="Our Trainers">
-      <h2>Meet the Team</h2>
-      <div class="trainer-grid">
-        <div class="trainer">
-          <div class="trainer-photo" aria-hidden="true">Photo</div>
-          <h4>Samira Khan</h4>
-          <p>Strength & conditioning specialist.</p>
-        </div>
-        <div class="trainer">
-          <div class="trainer-photo" aria-hidden="true">Photo</div>
-          <h4>Diego Ramos</h4>
-          <p>HIIT and mobility coach.</p>
-        </div>
-        <div class="trainer">
-          <div class="trainer-photo" aria-hidden="true">Photo</div>
-          <h4>Priya Patel</h4>
-          <p>Yoga and recovery expert.</p>
-        </div>
-      </div>
-    </section>
+  <section class="cta">
+    <div><p class="eyebrow">READY TO CHANGE?</p><h2>YOUR NEXT LEVEL<br>STARTS HERE.</h2></div>
+    <a class="btn" href="contact.html">Join IronForge</a>
+  </section>
+</main>
 
-    <section class="cta container" aria-label="CTA">
-      <div class="cta-inner">
-        <h2>Ready to start?</h2>
-        <p>Book a free trial and meet a coach for a fitness plan tailored to you.</p>
-        <a class="btn btn-primary" href="#contact">Book a Free Trial</a>
-      </div>
-    </section>
-
-    <!-- CLASSES -->
-    <section id="classes" class="container" aria-label="Classes and Schedule">
-      <h2>Classes & Schedule</h2>
-      <p>Find the right class for your goals — filter by type and time.</p>
-
-      <div class="filters" aria-hidden="false">
-        <label>
-          Type:
-          <select id="classTypeFilter" aria-label="Filter classes by type">
-            <option value="all">All</option>
-            <option value="strength">Strength</option>
-            <option value="cardio">Cardio</option>
-            <option value="yoga">Yoga</option>
-            <option value="hiit">HIIT</option>
-          </select>
-        </label>
-      </div>
-
-      <div id="classesList" class="class-grid" aria-live="polite">
-        <article class="class-card" data-type="strength">
-          <h3>Strength Training</h3>
-          <p>Build muscle and improve function. Suitable for all levels.</p>
-          <p class="muted">Mon, Wed, Fri • 18:00 - 19:00</p>
-        </article>
-
-        <article class="class-card" data-type="cardio">
-          <h3>Spin & Cardio</h3>
-          <p>High-energy cycling to boost endurance and burn calories.</p>
-          <p class="muted">Tue, Thu • 07:00 - 07:45</p>
-        </article>
-
-        <article class="class-card" data-type="yoga">
-          <h3>Vinyasa Yoga</h3>
-          <p>Flexibility, balance and stress relief.</p>
-          <p class="muted">Mon, Wed • 08:30 - 09:30</p>
-        </article>
-
-        <article class="class-card" data-type="hiit">
-          <h3>HIIT Express</h3>
-          <p>20–30 minute high-intensity circuits to get your heart racing.</p>
-          <p class="muted">Daily • 12:00 - 12:30</p>
-        </article>
-
-        <article class="class-card" data-type="strength">
-          <h3>Functional Strength</h3>
-          <p>Movement-based strength for real-world fitness and mobility.</p>
-          <p class="muted">Sat • 10:00 - 11:00</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="container contact-section" aria-label="Contact">
-      <h2>Contact & Book a Trial</h2>
-      <p>Fill out the form and we'll get back to you within one business day.</p>
-
-      <div class="contact-grid">
-        <form id="contactForm" class="contact-form" novalidate>
-          <label>
-            Full name
-            <input type="text" name="name" id="name" required minlength="2" />
-          </label>
-
-          <label>
-            Email*
+<footer><span>© 2026 IronForge Fitness</span><span>Train Hard • Stay Strong</span></footer>
+<script src="script.js"></script>
+</body>
+</html>
